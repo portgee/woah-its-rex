@@ -556,7 +556,11 @@ let oreList = {
     '✖️': { 'decimalRarity': 1 / 1, 'numRarity': 1, 'hasLog': false, 'isBreakable': false, 'caveExclusive': false, 'spawnMessage': '', 'oreTier': 'Layer',  },
     '❌': { 'decimalRarity': 1 / 1, 'numRarity': 1, 'hasLog': false, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': '', 'oreTier': 'Layer',  },
     '🕳️': { 'decimalRarity': 1 / 1, 'numRarity': 1, 'hasLog': false, 'isBreakable': true, 'caveExclusive': true, 'spawnMessage': '', 'oreTier': 'Layer',  },
+    'void': { 'decimalRarity': 1 / 1, 'numRarity': 1, 'hasLog': false, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': '', 'oreTier': 'Layer', "hasImage":true, "src": "media/ores/void.webp", "oreName": "Void"},
+
     'bitcoin' : { 'decimalRarity': 1 / Infinity, 'numRarity': Infinity, 'hasLog': false, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'erm', 'oreTier': 'Common',  },
+    ':3' : { 'decimalRarity': 1 / 1000000000000000000000000, 'numRarity': 1000000000000000000000000, 'hasLog': false, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'Meow meow meow meow meow meow meow meow', 'oreTier': 'Silly :3', 'hasImage' : true, "src" : "media/ores/kitty.gif", "oreName" : ":3"},
+    'SCP-3567-J' : { 'decimalRarity': 1 / 356735673567, 'numRarity': 356735673567, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'The Gay', 'oreTier': 'Silly :3',  'hasImage' : true, "src" : "media/ores/Astolfo_Bean.png", "oreName" : "Astolfo :3"},
     'Nyerd' : { 'decimalRarity': 1 / 450000000000, 'numRarity': 450000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': "you're a NYERD!!!", 'oreTier': 'Ethereal',  'hasImage' : true, "src" : "media/ores/NYERD.webp", "oreName" : "nyerd", "eId":"<:nyerd:1232461600087343156>"},
     'Fox' : { 'decimalRarity': 1 / 200000000000, 'numRarity': 200000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'what the fox is going on here!!', 'oreTier': 'Ethereal',  'hasImage' : true, "src" : "media/ores/STUPID_FOX.webp", "oreName" : "fox",},
     'Bismuth' : { 'decimalRarity': 1 / 830209019000, 'numRarity': 830209019000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'A vibrant mineral is barely detected due to its nearly unnoticeable α-decay...', 'oreTier': 'Ethereal',  'hasImage' : true, "src" : "media/ores/bismuth.png", "oreName" : "Bismuth", "eId":"<:bismuth:1268369596268941313>"},
@@ -579,12 +583,14 @@ let oreList = {
     'ascendedArtifact':{ 'decimalRarity': 1 / 30000000000000000, 'numRarity': 30000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'An alien artifact hidden from view for millenium is finally visible to our astronomers...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/ascendedartifact.png", "oreName" : "Ascended Artifact", "eId": "<:ascended_artifact:1269156869667291206>"},
     'J1407b':{ 'decimalRarity': 1 / 22000000000000000, 'numRarity': 22000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': "You marvel at this celestial giant's stunning, expansive rings, their vibrant colors shimmering in the vastness of space...", 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/J1407b.png", "oreName" : "J1407b",},
     'otherside':{ 'decimalRarity': 1 / 58000000000000000, 'numRarity': 58000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'Look up at the moon...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/otherside.png", "oreName" : "The Other Side",},
-    //'planetIX':{ 'decimalRarity': 1 / 900000000000, 'numRarity': 900000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'Once thought to be a mere rumor, a new celestial body reveals itself to you...', 'oreTier': 'Ethereal',  'hasImage' : true, "src" : "media/ores/planetIX.png", "oreName" : "Planet IX",},
+    'Retina':{ 'decimalRarity': 1 / 20000000000000000, 'numRarity': 20000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'An indefinite number of hallucinations reaves your mind...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/retina.gif", "oreName" : "Retina", "hasAudio": true, "audiosrc": "audios/oreAudios/retina.mp3", "playbackSpeed": 1, "rolloffDistance": 100, "volume": 100},
     'UHD':{ 'decimalRarity': 1 / 500000000000, 'numRarity': 500000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'this cat caused a big problem', 'oreTier': 'Ethereal',  'hasImage' : true, "src" : "media/ores/UHD.png", "oreName" : "Universe Heat Death",},
     'catgirl':{ 'decimalRarity': 1 / 1000000000000000, 'numRarity': 1000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'dhjbdfghjgdshbgsdhbgdhg...', 'oreTier': 'Infinitesimal',  'hasImage' : true, "src" : "media/ores/osaka-sata-andagi.gif", "oreName" : "Ok.",},
     'pleiades':{ 'decimalRarity': 1 / 7500000000000000, 'numRarity': 7500000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'A brilliant display of blue hues dance in the cosmos, providing a beautiful sight to all who stumble upon it...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/pleidas.webp", "oreName" : "Pleidas",},
-    'noradrenaline':{ 'decimalRarity': 1 / 999999999999999999, 'numRarity': 999999999999999999, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'A chill goes down your spine...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/noradrenaline.gif", "oreName" : "Noradrenaline",},
+    'noradrenaline':{ 'decimalRarity': 1 / 999999999999999999, 'numRarity': 999999999999999999, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'A chill goes down your spine...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/noradrenaline.gif", "srcElectrified": "media/ores/ionepine.gif", "oreName" : "Noradrenaline", "hasAudio": true, "audiosrc": "audios/oreAudios/noradrenaline.mp3", "playbackSpeed": 2, "rolloffDistance": 100, "volume": 25},
     /*gif credits: https://rex-reincarnated.fandom.com/wiki/Epinephrine*/
+    
+    'lowtaperfade':{ 'decimalRarity': 1 / 999999999999999999999, 'numRarity': 999999999999999999999, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'A low taper fade goes down your spine...', 'oreTier': 'Silly :3',  'hasImage' : true, "src" : "media/ores/lowtaperfade.gif", "oreName" : "Low Taper Fade", "hasAudio": true, "audiosrc": "audios/oreAudios/lowtaperfade.mp3", "playbackSpeed": 1, "rolloffDistance": 100, "volume": 25},
     'singularityEgg':{ 'decimalRarity': 1 / Infinity, 'numRarity': Infinity, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'meowww :3', 'oreTier': 'Infinitesimal',  'hasImage' : true, "src" : "media/ores/singularityegg.webp", "oreName" : "Singularity Egg",},
     'orbOfLife':{ 'decimalRarity': 1 / 5000000000000000000, 'numRarity': 5000000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'meowww :3', 'oreTier': 'Polychromatical',  'hasImage' : true, "src" : "media/ores/ore3.gif", "oreName" : "Orb of Life",},
     'orbOfIntelligence':{ 'decimalRarity': 1 / 9750000000000000000, 'numRarity': 9750000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'meowww :3', 'oreTier': 'Polychromatical',  'hasImage' : true, "src" : "media/ores/ore4.gif", "oreName" : "Orb of Intelligence",},
@@ -600,6 +606,7 @@ let oreList = {
     'Omniscient Clover':{ 'decimalRarity': 1 / 3450000000000000, 'numRarity': 3450000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'A viridescent clover shines and floats, the luck itself materializes before your eyes...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/omniscientClover.png", "oreName" : "Omniscient Clover",},
     'Koreosensei':{ 'decimalRarity': 1 / 153454153454153454153, 'numRarity': 153454153454153454153, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'The tentacles asked him "what do you want to be?" and he answered "I want to be weak." He is now here to teach you the truth of the mines.', 'oreTier': 'Polychromatical',  'hasImage' : true, "src" : "media/ores/COREosensei.png", "oreName" : "Koreosensei",},
     'Saitamore':{ 'decimalRarity': 1 / 100100100010365001000, 'numRarity': 100100100010365001000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'Ok.', 'oreTier': 'Polychromatical',  'hasImage' : true, "src" : "media/ores/Saitamore.gif", "oreName" : "Saitamore",},
+    'Miku':{ 'decimalRarity': 1 / Infinity, 'numRarity': Infinity, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': '', 'oreTier': 'Infinitesimal',  'hasImage' : true, "src" : "media/ores/miku.gif", "oreName" : "Miku",},
     'Hyper':{ 'decimalRarity': 1 / Infinity, 'numRarity': Infinity, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': '', 'oreTier': 'Infinitesimal',  'hasImage' : true, "src" : "media/ores/Hyper.png", "oreName" : "Hyper",},
     'Panselinos':{ 'decimalRarity': 1 / 430000000000000000, 'numRarity': 430000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'Hidden away from astronomers for centuries, the envenomed planet comes into view at last...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/panselinos.png", "oreName" : "Panselinos",},
     'Real Scribbal':{ 'decimalRarity': 1 / 2000000000000000, 'numRarity': 2000000000000000, 'hasLog': true, 'isBreakable': true, 'caveExclusive': false, 'spawnMessage': 'A figment of your imagination springs to life from inside your sketchbook...', 'oreTier': 'Hyperdimensional',  'hasImage' : true, "src" : "media/ores/realScribbal.gif", "oreName" : "Real Scribbal",},
@@ -641,7 +648,7 @@ const layerList = {
 "paperLayer" : ["Real Scribbal", "sillyMiner", "🎩", "💵", "🪅", "👀", "🌟", "📝", "⌚", "🗜️", "🏆", "🎲", "✂️", "🃏", "⚙️", "📰"],
 "giftLayer": ["sillyMiner", "🍭", "💽", "🛢️", "⚛️", "🗳️", "🎎", "📿", "🎑", "📢", "🚗", "🎫", "🎮", "🎁"],
 "worldOneCommons" : ["godOfTheMine", "🤍", "🖤", "🤎", "💜", "❤️", "🧡", "💛", "💙", "💚", "🔶", "🔷", "🔸", "🔹", "🔺", "🔻", "🔘", "🔲", "🟨", "🟦", "⬛", "⬜", "🧧", "◾", "◽", "⚫", "🟤", "🟣", "🔴", "🟠", "🟡", "🔵", "🟢", "🟪", "🟥", "🟧"],
-"sillyLayer" : ["ah!SoSorgy!", "Pasta", "sillyMiner", "UHD", "qrCode", "kaleidoscope", "🎉", "🧌", "Nyerd", "Fox", "♾️", "💅", "😁", "🪢", "🎂"],
+"sillyLayer" : [":3", "ah!SoSorgy!", "Pasta", "sillyMiner", "UHD", "qrCode", "kaleidoscope", "🎉", "🧌", "Nyerd", "Fox", "♾️", "💅", "😁", "🪢", "🎂"],
 "fluteLayer" : ["sillyMiner", "mushroomCats", "🫶", "🪈"],
 "cloudLayer" : ["TheHowlingMoon", "starglint", "sillyMiner",  "🪽", "⚡", "🍃", "🪶", "🌦️", "🌩️", "⛈️", "🪁", "🪂", "🌨️", "🌥️", "🌤️", "🌧️", "🎐", "☁️"],
 "cloudLayer2" : ["TheHowlingMoon", "🖐", "starglint", "sillyMiner",  "🪽", "⚡", "🍃", "🪶", "🌦️", "🌩️", "⛈️", "🪁", "🪂", "🌨️", "🌥️", "🌤️", "🌧️", "🎐", "☁️"],
@@ -662,14 +669,16 @@ const layerList = {
 "ocLayer" : ["sillyMiner", '🇦🇺', '🇵🇬', '🇳🇿', '🇫🇯', '🇸🇧', '🇫🇲', '🇻🇺', '🇵🇫', '🇳🇨', '🇼🇸', '🇹🇻'],
 "catcatLayer" : [ '🏳️‍⚧️', '🏁', '🇺🇳'],
 "starLayer" : ["Koreosensei", "Panselinos", "txtfile", "cosmicIridium", "unstableCore", "pleiades", "australiumIngot", "stars"],
-"nebulaLayer" : ["Koreosensei", "noradrenaline", "Desolation", "otherside", "ascendedArtifact", "J1407b", "Charybdis", "nebula"]
+"nebulaLayer" : ["Koreosensei", "noradrenaline", "Desolation", "otherside", "ascendedArtifact", "J1407b", "Charybdis", "nebula"],
+"voidLayer" : ["Retina", "void"]
+
 }
 const createdLayers = {
 
 }
 let worldOneLayers = ["dirtLayer", "brickLayer", "foggyLayer", "waterLayer", "rockLayer", "radioactiveLayer", "cactusLayer", "paperLayer", "giftLayer"];
 let worldTwoLayers = ["cloudLayer", "tvLayer", "doorLayer", "globeLayer", "chessLayer"];
-let galacticaLayers = ["starLayer", "nebulaLayer"]
+let galacticaLayers = ["starLayer", "nebulaLayer", "voidLayer"]
 let subRealmOneLayers = ["scLayer", "bnLayer", "knLayer", "vaLayer", "srLayer", "ocLayer", "catcatLayer"];
 let waterWorldLayers = ["waterLayer"]
 let specialLayers = ["sillyLayer", "fluteLayer", "grassLayer", "dirtLayer2", "dirtLayer3", "barrierLayer", "borderLayer"]
@@ -721,6 +730,7 @@ const layerIndex = {
 galacticaLayers : {
     0 : "starLayer",
     1 : "nebulaLayer",
+    2 : "voidLayer"
 }
 }
 let lastRepeatedLayer = -1;
@@ -1034,7 +1044,7 @@ function applyLuckToLayer(layer, luck) {
         let newRarity = (oreList[layer[i]]["noLuck"] || oreList[layer[i]]["oreTier"] === "Layer") ? oreList[layer[i]]["numRarity"] : (baseValue / layerluck);
         if (commons.indexOf(oreList[layer[i]]["oreTier"]) < 0)
             if (oreList[layer[i]]["oreTier"] === "Layer" || 1/newRarity <= 1/1000) oreList[layer[i]]["decimalRarity"] = (1/newRarity);
-            else oreList[layer[i]]["decimalRarity"] = (1/1000);
+            else oreList[layer[i]]["decimalRarity"] = (1/20);
         else {
             if (player.powerupVariables.commonsAffected.state) oreList[layer[i]]["decimalRarity"] = 1/((oreList[layer[i]]["numRarity"] * oreInformation.commonMultiplier) / (layerluck >= 3.5 ? 3.5 : layerluck));
             else oreList[layer[i]]["decimalRarity"] = 1/(oreList[layer[i]]["numRarity"] * oreInformation.commonMultiplier)
@@ -1081,6 +1091,18 @@ function removeFromLayers(obj) {
         if (layerDictionary[layers[i]].layer.includes(ore)) {
             layerDictionary[layers[i]].layer.splice(layerDictionary[layers[i]].layer.indexOf(ore), 1);
             updateAllLayers();
+        }
+    }
+}
+
+const transformableOres = {
+    "SCP-3567-J": {
+        "rarity": 1 / 1,
+        "oresRequired": {
+            "💅": {
+                "amount": 5,
+                "catalyst": true
+            }
         }
     }
 }
@@ -1285,7 +1307,11 @@ class ores {
         "Polychromatical" : {
             colors : {"backgroundColor" : "#ff0526", "textColor" : "#ffffff"},
             tierMessage : ``,
-        }
+        },
+        "Silly :3" : {
+            colors : {"backgroundColor" : "linear-gradient(90deg, hsla(325, 100%, 86%, 1) 0%, hsla(301, 100%, 50%, 1) 90%, hsla(0, 0%, 0%, 1) 100%)", "textColor" : "#ffffff", "isGradient" : true},
+            tierMessage : `Blehhh im so silly :P`,
+        },
     }
     getTierMessage(tier) {
         return this.oreTiers[tier].tierMessage;
@@ -1351,6 +1377,7 @@ class ores {
         if (tier === "Hyperdimensional") return "blackout 10s linear 1";
         if (tier === "Infinitesimal") return "invisible 7s linear 1";
         if (tier === "Polychromatical") return "chaos 4s linear 1"
+        if (tier === "Silly :3") return "rainbow 5s linear 1"
         return "";
     }
 }

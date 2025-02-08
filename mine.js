@@ -37,8 +37,14 @@ function checkAllAround(x, y) {
 function mineBlock(x, y, cause) {
     let mineBlockOre;
     let mineBlockVariant;
+    const key = `${y},${x}`;
+    endOreSound(key)
     if (mine[y][x].ore !== undefined) {
-        if (mine[y][x].isPlaced) {mine[y][x] = "⚪"; checkAllAround(x, y); return;}
+        if (mine[y][x].isPlaced) {
+            mine[y][x] = "⚪";
+            checkAllAround(x, y); 
+            return;
+        }
         mineBlockOre = mine[y][x].ore;
         mineBlockVariant = mine[y][x].variant;
     } else {
@@ -203,6 +209,7 @@ const generateBlock = function(location, wbm) {
             verifiedOres.verifyLog(location["Y"], location["X"]);
         }
         playSound(oreList[blockToGive]["oreTier"], blockToGive);
+        playOreSound(blockToGive, location["X"], location["Y"])
         if (messageIncluded(oreList[blockToGive]["oreTier"])) spawnMessage({block: blockToGive, location: location, caveInfo: undefined, variant: variant,});
         let canCollect = (currentWorld < 2 && (player.gears["gear3"] || player.gears["gear17"]));
         if (!canCollect) (canCollect = currentWorld === 2 && player.gears["gear17"]);
@@ -879,3 +886,75 @@ function goToAnniversary() {
     keepRunningAudio.pause();
     document.body.innerHTML = '<iframe src="https://ambercatgirl.github.io/silly-caverns-anniversary-event/" title="The Silly Caverns" style="width:100vw; height:100vh; overflow:hidden;"></iframe>';
 }
+
+let transformTable = {};
+
+function checkForTransformations() {
+    if (rand == undefined) return
+    for (const transformKey in transformableOres) {
+        const oreData = transformableOres[transformKey];
+        const aleaVals = {rand: aleaRandom(), count: gameInfo.overallCount, seed: gameInfo.seed};
+        
+        if (aleaVals.rand >= oreData.rarity) continue;
+
+        const requiredOres = oreData.oresRequired;
+
+        let transformPosition = null;
+        let otherOrePositions = {}
+        let canTransform = true;
+        let variant = null;
+        const oreCount = {};
+
+        for (const key in transformTable) {
+            const cell = transformTable[key];
+            if (!cell) continue;
+
+            const [y, x] = key.split(',').map(Number);
+            const { ore: oreType } = cell;
+
+            if (requiredOres[oreType]) {
+                oreCount[oreType] = (oreCount[oreType] || 0) + 1;
+
+                if (requiredOres[oreType].catalyst && !transformPosition) {
+                    transformPosition = { yPos: y, xPos: x };
+                    variant = transformTable[key]["variant"]
+                } else {
+                    otherOrePositions[key] = { yPos: y, xPos: x };
+                }
+            }
+        }
+
+        for (const requiredOreKey in requiredOres) {
+            if ((oreCount[requiredOreKey] || 0) < requiredOres[requiredOreKey].amount) {
+                canTransform = false;
+                break;
+            }
+        }
+
+        if (canTransform && transformPosition && variant) {
+            const { yPos, xPos } = transformPosition;
+            mine[yPos][xPos] = { ore: transformKey, variant: variant };
+            verifiedOres.createLog(yPos,xPos,{ore: transformKey, variant: variant}, new Error(), undefined, aleaVals);
+            verifiedOres.verifyLog(yPos, xPos);
+            spawnMessage({block: transformKey, location: {["Y"]: yPos, ["X"]: xPos}, caveInfo: undefined, variant: variant,})
+            const key = `${yPos},${xPos}`;
+            if (transformTable[key]?.ore !== undefined) {
+                delete transformTable[key];
+            }    
+            for (const item in otherOrePositions) {
+                const yPos = otherOrePositions[item].yPos;
+                const xPos = otherOrePositions[item].xPos;
+                const key = `${yPos},${xPos}`;
+                mine[yPos][xPos] = "⚪";
+                checkAllAround(xPos, yPos)
+                delete transformTable[key];
+            }
+            //playSound("Transform")
+            playSound(oreList[transformKey]["oreTier"])
+            displayArea();
+        }
+    }
+}
+
+
+

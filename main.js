@@ -32,6 +32,7 @@ let currentLayerNum = 0;
 const birthdays = {
     "3/28" : "Draedon",
     "12/16" : "ThatBotCook",
+    "12/5" : "FwPortgee",
     "12/23" : "Amber",
     "8/8" : "Korone",
     "4/8" : "REEKY",
@@ -74,6 +75,7 @@ function init() {
     insertIntoLayers({"ore":"🦾", "layers":["tvLayer", "brickLayer"], "useLuck":true});
     removeFromLayers({"ore":"HD 160529","layers":["waterLayer"]});
     if (Math.random() < 1/1000) insertIntoLayers({"ore":"intercept", "layers":["globeLayer"], "useLuck":true})
+    if (Math.random() < 1/1000) insertIntoLayers({"ore":"Miku", "layers":["fluteLayer"], "useLuck":true})
     document.getElementById('dataText').value = "";
     if (Math.random() < 1/1000) document.getElementById("cat").innerText = "CatAxe";
     limitedTimer = setInterval(checkLimitedOres, 1000);
@@ -226,6 +228,8 @@ let eventSpawn;
 let hyperdimensional;
 let infinitesimal;
 let polychromatical;
+let silly;
+let transformSound;
 let allAudios = {
     "Antique" : undefined,
     "Mystical" : undefined,
@@ -239,7 +243,9 @@ let allAudios = {
     "Imaginary" : undefined,
     "Hyperdimensional" : undefined,
     "Polychromatical" : undefined,
-    "Infinitesimal" : undefined
+    "Infinitesimal" : undefined,
+    "Silly :3": undefined,
+    "Transform": undefined
 };
 let osaka;
 function loadContent() {
@@ -260,6 +266,8 @@ function loadContent() {
     hyperdimensional = new Audio("audios/hyperdimensional.mp3");
     infinitesimal = new Audio("audios/infinitesimal.mp3");
     polychromatical = new Audio("audios/polychromatical.mp3");
+    silly = new Audio("audios/silly.mp3")
+    transformSound = new Audio("audios/transform.mp3")
     osaka = new Audio("audios/lol.mp3");
     allAudios["Antique"] = chill;
     allAudios["Mystical"] = mystical;
@@ -274,6 +282,8 @@ function loadContent() {
     allAudios["Hyperdimensional"] = hyperdimensional;
     allAudios["Infinitesimal"] = infinitesimal;
     allAudios["Polychromatical"] = polychromatical;
+    allAudios["Silly :3"] = silly;
+    allAudios["Transform"] = transformSound;
     for (let property in allAudios) allAudios[property].load();
     musicPlayer.songs["song1"].src = new Audio("audios/ely_audio_1.mp3");
     musicPlayer.songs["song2"].src = new Audio("audios/ely_audio_2.mp3");
@@ -305,6 +315,7 @@ function movePlayer(dir, reps, type) {
                     mine[curY][curX] = "⚪";
                     curY += dir.y;
                     curX += dir.x;
+                    updateAudioVolumes();
                     movementsX += Math.abs(dir.y) + Math.abs(dir.x)
                     if (dir.y !== 0) setLayer(curY);
                     mineBlock(curX, curY, "mining");
@@ -353,6 +364,19 @@ function movePlayer(dir, reps, type) {
     }
     if (curDirection === "") displayArea();
 }
+
+function updateAudioVolumes() {
+    for (let key in activeSounds) {
+        const [y, x] = key.split(",").map(Number);
+        const distance = Math.sqrt((curY - y) ** 2 + (curX - x) ** 2);
+        const maxDistance = activeSounds[key]["rolloffDistance"];
+        const maxVolume = activeSounds[key]["maxVolume"] || 1; // Default maxVolume to 1 if not defined
+        const volume = Math.max(0, maxVolume * (1 - distance / maxDistance)); // Linear roll-off scaled by maxVolume
+        activeSounds[key].volume = volume;
+    }
+}
+
+
 function getNextSolidY(dir, y, x) {
     const original = dir;
     while (y + dir > 0 && mine[y + dir][x] === "⚪" && Math.abs(dir) < 25) dir += original;
@@ -649,11 +673,14 @@ function checkDisplayVariant(location) {
     const ore = location.ore !== undefined ? location.ore : location;
     const tier = oreList[ore]["oreTier"];
     let isRare = (tier !== "Layer" && commons.indexOf(tier) === -1);
+    const variant = location.variant !== undefined ? location.variant : 1;
     if (oreList[ore]["hasImage"]) {
-        let isLarge = tier === "Hyperdimensional" || tier === "Infinitesimal" || oreList[ore]["numRarity"] >= 1000000000000000;
-        let isMassive = ore === "noradrenaline"
-        if (isRare) oreToAdd = `<img class="${isMassive ? "hugeMineImage" : isLarge ? 'largeMineImage' : 'mineOre'}" src="${oreList[ore]["src"]}"></img>`;
-        else return `<span class="mineSpan"><img class="mineImage" src="${oreList[ore]["src"]}"></img></span>`;
+        let oreLink = oreList[ore]["src"]
+        if (variant == 2 && oreList[ore]["srcElectrified"]) {oreLink = oreList[ore]["srcElectrified"];}
+        let isLarge = tier === "Hyperdimensional" || tier === "Infinitesimal" || tier === "Silly :3" || oreList[ore]["numRarity"] >= 1000000000000000;
+        let isMassive = (ore === "noradrenaline") || (ore === ":3")
+        if (isRare) oreToAdd = `<img class="${isMassive ? "hugeMineImage" : isLarge ? 'largeMineImage' : 'mineOre'}" src="${oreLink}"></img>`;
+        else return `<span class="mineSpan"><img class="mineImage" src="${oreLink}"></img></span>`;
         includeSize = "";
         specialVariant = "Img";
     } else {
@@ -662,8 +689,10 @@ function checkDisplayVariant(location) {
         includeSize = "normalRare";
         specialVariant = "";
     }
-    const variant = location.variant !== undefined ? location.variant : 1;
-    if (variant > 1) {
+    if ((variant != 2 || (variant == 2 && !oreList[ore]["srcElectrified"])) &&
+    (variant != 3 || (variant == 3 && !oreList[ore]["srcRadioactive"])) &&
+    (variant != 4 || (variant == 4 && !oreList[ore]["srcExplosive"])) &&
+    variant != 1) {
         if (location.variant === 2) {
             return `<span class="mineSpan electrifiedBlock${specialVariant} ${includeSize}">${oreToAdd}</span>`
         } else if (variant === 3) {
@@ -743,13 +772,15 @@ function createInventory() {
             tempElement.id = `${propertyName}Holder`;
             tempElement.setAttribute("onclick", "handleInventoryClick(this, 'inv');")
             let colors = oreInformation.getColors(oreList[propertyName]["oreTier"]);
-            tempElement.style.backgroundImage = "linear-gradient(to right, " + colors["backgroundColor"] + " 90%, black)"
+            let backgroundColorSet;
+            if (colors["isGradient"] === true) { backgroundColorSet = colors["backgroundColor"]} else { backgroundColorSet =  "linear-gradient(to right, " + colors["backgroundColor"] + " 90%, black)"}
+            tempElement.style.backgroundImage = backgroundColorSet
             tempElement.style.color = colors["textColor"];
             tempElement.style.display = "none";
             let oreNameBlock = document.createElement("td");
             if (oreList[propertyName]["hasImage"]) {
                 const tier = oreList[propertyName]["oreTier"]
-                if ((tier === "Infinitesimal" || tier === "Hyperdimensional" || oreList[propertyName]["numRarity"] >= 1000000000000000) && oreList[propertyName]["hasImage"]) {
+                if ((tier === "Infinitesimal" || tier === "Hyperdimensional" || tier === "Silly :3" || oreList[propertyName]["numRarity"] >= 1000000000000000) && oreList[propertyName]["hasImage"]) {
                     oreNameBlock.innerHTML = `<span class="inventoryImage"><img src="${oreList[propertyName]["src"]}" style="width:2.5vw; height:2.5vw; margin-right:0px; margin-left:0px;"></img></span>`;
                 } else {
                     oreNameBlock.innerHTML = `<span class="inventoryImage"><img src="${oreList[propertyName]["src"]}"></img></span>`;
@@ -914,6 +945,8 @@ function updateInventory(m = true) {
             }
         }
     }
+
+    checkForTransformations();
 
     //Check Powerup Contitions and Update Cooldowns
     checkAllConditions();
@@ -1095,7 +1128,7 @@ function spawnMessage(obj) {
     let blockOutput;
     let curTier = oreList[block]["oreTier"];
     if (oreList[block]["hasImage"]) {
-        if (curTier === "Hyperdimensional" || curTier === "Infinitesimal" || oreList[block]["numRarity"] >= 1000000000000000) {
+        if (curTier === "Hyperdimensional" || curTier === "Infinitesimal" || curTier === "Silly :3" || oreList[block]["numRarity"] >= 1000000000000000) {
             blockOutput = `<span class="latestImage"><img src="${oreList[block]["src"]}" style="width:2.5vw; height:2.5vw;"></img></span>`;
             toEdit.style.height = "2.5vw";
         } else {
@@ -1119,7 +1152,9 @@ function spawnMessage(obj) {
     if (toAppendTo.children.length > player.settings.latestLength) toAppendTo.removeChild(toAppendTo.lastChild);
     const colors = oreInformation.getColors(oreList[block]["oreTier"]);
     toEdit.classList.add(getShadowClass(colors["textColor"]));
-    toEdit.style.background = `linear-gradient(to right, #000000, ${colors["backgroundColor"]} 15%, 85%, #000000)`;
+    let toEditStyleColor;
+    if (colors["isGradient"] === true) { toEditStyleColor = colors["backgroundColor"]} else { toEditStyleColor =  `linear-gradient(to right, #000000, ${colors["backgroundColor"]} 15%, 85%, #000000)`}
+    toEdit.style.background = toEditStyleColor;
     toEdit.style.color = colors["textColor"];
     let createSpawnMessage = false;
     if (oreInformation.tierGrOrEqTo({"tier1": curTier, "tier2":currentSpawnTier}) || spawnOre === null || currentSpawnTier === "") createSpawnMessage = true;

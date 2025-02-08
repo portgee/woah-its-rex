@@ -2812,6 +2812,12 @@ img.roundcat {
   95% {filter: sepia(1);}
   100% {filter: sepia(0);}
 }
+
+@keyframes rainbow {
+  0%, 100% {filter: none;}
+  50% {filter: grayscale(50%) sepia(100%) saturate(500%) hue-rotate(330deg) brightness(110%);}
+}
+
 #powerupLock {
   position: absolute;
   width: 100%;

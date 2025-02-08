@@ -303,11 +303,50 @@ function formatEventMonths(arr) {
     return `${monthOutput}`;
 }
 
+const activeSounds = {};
+
+function endOreSound(key) {
+    if (activeSounds[key]) {
+        if (activeSounds[key]) {
+            activeSounds[key].pause();
+            activeSounds[key].currentTime = 0;
+            delete activeSounds[key];
+        } 
+    } 
+}
+
+function playOreSound(ore, x, y) {
+    const key = `${y},${x}`;
+    endOreSound(key)
+    if (oreList[ore]["hasAudio"]) {
+        const oreSound = new Audio(oreList[ore]["audiosrc"]);
+        const volumeSet = (oreList[ore]["volume"] / 100);
+        oreSound.volume = volumeSet
+        oreSound.playbackRate = oreList[ore]["playbackSpeed"];
+        oreSound.loop = true
+
+        oreSound.preservesPitch = false;
+        oreSound.mozPreservesPitch = false;
+        oreSound.webkitPreservesPitch = false;
+    
+        oreSound.play();
+        
+        activeSounds[key] = oreSound;
+        activeSounds[key]["rolloffDistance"] = oreList[ore]["rolloffDistance"];
+        activeSounds[key]["maxVolume"] = volumeSet;
+    }
+}
+
 let isPlacing = false;
 function handleInventoryClick(element, from) {
     const ore = element.id.substring(0, element.id.length - 6);
     const elemInv = gameInfo.selectedInventory;
-    if (isPlacing) {mine[curY][curX + 1] = {ore: ore, variant: elemInv+1, isPlaced: true}; displayArea();}
+    transformTable[`${curY},${curX + 1}`] = {ore: ore, variant: elemInv + 1, isPlaced: true};
+    if (isPlacing) {
+        mine[curY][curX + 1] = {ore: ore, variant: elemInv+1, isPlaced: true}; 
+        displayArea();
+        playOreSound(ore, (curX + 1), curY)
+    }
     else if (elemInv === 0) randomFunction(ore, from);
     else goToConvert(ore, elemInv);
 }
@@ -410,7 +449,7 @@ const indexOrder = {
         "subrealmOne" : {l: ["scLayer", "bnLayer", "knLayer", "vaLayer", "srLayer", "ocLayer", "catcatLayer"], req: function() {return player.sr1Unlocked}},
     },
     0.9: {
-        "galactica" : {l: ["starLayer", "nebulaLayer"], req: function() {return player.galacticaUnlocked}},
+        "galactica" : {l: ["starLayer", "nebulaLayer", "voidLayer"], req: function() {return player.galacticaUnlocked}},
     },
     "caves" : {
         "caves1" : {l: ["bacteriaCave", "biohazardCave", "musicCave", "mysteryCave"], req: function() {return player.pickaxes["pickaxe5"]}},
@@ -533,7 +572,8 @@ function createIndexCards(layer) {
             document.querySelector(".indexCardOre").innerHTML = `<span class="${hide ? "indexCardBlackout" : ""}">${ore}</span>`;
         }
         let e = document.querySelector(".indexCardTier").children[0];
-        e.style.color = oreInformation.getColors(tier)["backgroundColor"];
+        let colors = oreInformation.getColors(tier)
+        e.style.color =  colors["backgroundColor"];
         e.innerHTML = e.innerHTML.replace("Polychromatical", tier);
         const f = playerInventory[ore]["foundAt"];
         document.querySelector(".indexCardFound").textContent = `${hide || (indexHasOre(ore) === 0 && f === undefined) ? "Never Found!" : (f === undefined ? "No Date Detected!" : new Date(f).toUTCString())}`;
@@ -561,7 +601,7 @@ function createIndexCards(layer) {
         if (layer === "event") document.querySelector(".indexCardEvent").textContent =`${formatEventMonths(limitedOres[ore].timeValues)} ${formatEventLayers(limitedOres[ore].layers)}`;
         if (oreList[ore]["hasImage"] && !hide) document.querySelector(".indexCardBackground").style.backgroundImage = `url("${oreList[ore]["src"]}")`;
         else if (!hide) document.querySelector(".indexCardBackground").textContent = ore;
-        if (!hide) document.querySelector(".indexCardBackground").style.backgroundColor = oreInformation.getColors(tier)["backgroundColor"];
+        if (!hide) document.querySelector(".indexCardBackground").style.background = colors["backgroundColor"];
         copying.remove();
         get("loungeCardHolder").appendChild(copying);
     }
